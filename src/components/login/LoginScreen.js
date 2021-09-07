@@ -1,22 +1,31 @@
-import React from 'react'
+import React, { useContext } from "react";
+import { AuthContext } from "../../auth/AuthContext";
+import { types } from "../../types/types";
 
-export const LoginScreen = ({history}) => {
+export const LoginScreen = ({ history }) => {
+  const {dispatch} = useContext(AuthContext)
+  
+  const handleLogin = () => {
     
-    const handleLogin= ()=>{
-        history.push("/")
-    }
-    
-    return (
-        <div className="container mt-5">
-            <h1>Login Screen</h1>
-            <hr/>
-            <button
-                className="btn btn-primary"
-                onClick={handleLogin}
-            
-            >
-            Login
-            </button>
-        </div>
-    )
-}
+    const lastPath = localStorage.getItem("lastPath") || "/";
+
+    dispatch({
+      type: types.login,
+      payload:{
+        name:"Fausto"
+      }
+    })
+
+    history.replace(lastPath); //it also works due to its sync feature which will act after everything else happens, including the dispatch block of code
+  };
+
+  return (
+    <div className="container mt-5">
+      <h1>Login Screen</h1>
+      <hr />
+      <button className="btn btn-primary" onClick={handleLogin}>
+        Login
+      </button>
+    </div>
+  );
+};
