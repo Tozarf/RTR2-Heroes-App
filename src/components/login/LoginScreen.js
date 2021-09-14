@@ -5,10 +5,12 @@ import { types } from "../../types/types";
 export const LoginScreen = ({ history }) => {
   const {dispatch} = useContext(AuthContext)
   
+  
   const handleLogin = () => {
     
     const lastPath = localStorage.getItem("lastPath") || "/";
 
+    
     dispatch({
       type: types.login,
       payload:{
@@ -16,9 +18,11 @@ export const LoginScreen = ({ history }) => {
       }
     })
 
+    
     history.replace(lastPath); //it also works due to its sync feature which will act after everything else happens, including the dispatch block of code
   };
 
+  
   return (
     <div className="container mt-5">
       <h1>Login Screen</h1>
